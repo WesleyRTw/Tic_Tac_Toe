@@ -49,4 +49,4 @@ Super Tic-Tac-Toe (also known as Ultimate Tic-Tac-Toe) takes the challenge to a 
 To compile and run this project on your machine, you will need a C compiler like GCC installed.
 
 👨‍💻 Author
-Crafted with dedication by [Your Name].
+Crafted with dedication by [Wesley Heringer de Brito].
