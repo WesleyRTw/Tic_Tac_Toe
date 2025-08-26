@@ -1,6 +1,7 @@
 #include <stdio.h>
 
-void initializeBoard(char board[3][3]) {
+// Function that initializes the matrix with empty spaces and prints it on the screen
+void initializeBoard(char board[3][3]) { 
     for (int i = 0; i < 3; i++) {
         for (int j = 0; j < 3; j++) {
             board[i][j] = ' ';
@@ -10,11 +11,10 @@ void initializeBoard(char board[3][3]) {
     }
 }
 
-
 int main() {
     
-    char board[3][3];
-    int options;
+    char board[3][3]; // Matrix that representing the board
+    int options; //
 
     printf("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n");
     printf("+-+-+-+-+| WELCOME TO TIC TAC TOE! |+-+-+-+-+\n");
@@ -32,7 +32,6 @@ int main() {
     } else{
         printf("Invalid response!");
     }
-
 
     return 0;
     
