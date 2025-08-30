@@ -17,11 +17,26 @@ void printBoard(char board[3][3]) {
         printf("\n");
     }
 }
+void selectPlayer(char jogador){
+    printf("Escolha um jogador: \n");
+    scanf("%c", &jogador);
+    
+    if (jogador == 'X'){
+        printf("Voce esta jogando com o X!");
+    } else if (jogador == 'O') {
+        printf("Voce esta jogando com o O!");
+    } else {
+        printf("Esse jogador nao existe! Escolha novamente!");
+    }
+}
 
+void selectSquare();
+    
 int main() {
     
     char board[3][3]; // Matrix that representing the board
-    int options; 
+    char jogador;
+    int options;
 
     printf("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n");
     printf("+-+-+-+-+| WELCOME TO TIC TAC TOE! |+-+-+-+-+\n");
@@ -33,11 +48,11 @@ int main() {
         printf("+-+-+-+-+-+-+-| 2 >>EXIT<< 2 |-+-+-+-+-+-+-+-\n");
         printf(">>> ");
         scanf("%d", &options);
-
+        // Stop options one and two...
         if (options == 1){
             initializeBoard(board);
             printBoard(board);
-            return 1;
+            break;
         } else if (options == 2) {
             printf("Closing the game...\n");
             break;
@@ -45,6 +60,8 @@ int main() {
             printf("Invalid selection! Please enter the option again.\n");
         }
     }
+
+    selectPlayer(jogador);
 
     return 0;
     
