@@ -8,34 +8,39 @@ void initializeBoard(char board[3][3]) {
         }
     }
 }
+
 // Function to print the Tic-Tac-Toe board to the screen, still empty
 void printBoard(char board[3][3]) {
+    printf("+-+-+-+-+\n");
     for (int i = 0; i < 3; i++){
         for (int j = 0; j < 3; j++){
-            printf("|%c", board[i][j]);
+            printf("|%c|", board[i][j]);
         }
         printf("\n");
     }
+    printf("+-+-+-+-+\n");
 }
-void selectPlayer(char jogador){
-    printf("Escolha um jogador: \n");
-    scanf("%c", &jogador);
+
+// Function to let the player choose their symbol (X or O)
+char selectPlayer() {
+    char local_player; // Variable receives the player's choice locally within the function
     
-    if (jogador == 'X'){
-        printf("Voce esta jogando com o X!");
-    } else if (jogador == 'O') {
-        printf("Voce esta jogando com o O!");
-    } else {
-        printf("Esse jogador nao existe! Escolha novamente!");
+    while(1) {
+        printf("Choose a player (X or O): \n");
+        scanf(" %c", &local_player);
+
+        if (local_player == 'X' || local_player == 'O') {
+            printf("You are playing as %c!\n", local_player);
+            return local_player; // Return the choice
+        } else {
+            printf("That player does not exist! Please choose again! ");
+        }
     }
 }
 
-void selectSquare();
-    
 int main() {
     
     char board[3][3]; // Matrix that representing the board
-    char jogador;
     int options;
 
     printf("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+\n");
@@ -49,9 +54,9 @@ int main() {
         printf(">>> ");
         scanf("%d", &options);
         // Stop options one and two...
-        if (options == 1){
+        if (options == 1) {
             initializeBoard(board);
-            printBoard(board);
+            char current_player = selectPlayer();
             break;
         } else if (options == 2) {
             printf("Closing the game...\n");
@@ -60,8 +65,6 @@ int main() {
             printf("Invalid selection! Please enter the option again.\n");
         }
     }
-
-    selectPlayer(jogador);
 
     return 0;
     
