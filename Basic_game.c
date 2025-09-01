@@ -56,7 +56,6 @@ int main() {
         // Stop options one and two...
         if (options == 1) {
             initializeBoard(board);
-            char current_player = selectPlayer();
             break;
         } else if (options == 2) {
             printf("Closing the game...\n");
