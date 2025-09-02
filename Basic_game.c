@@ -26,16 +26,38 @@ char selectPlayer() {
     char local_player; // Variable receives the player's choice locally within the function
     
     while(1) {
-        printf("Choose a player (X or O): \n");
+        printf("Choose the first player (X or O): \n");
         scanf(" %c", &local_player);
 
         if (local_player == 'X' || local_player == 'O') {
             printf("You are playing as %c!\n", local_player);
             return local_player; // Return the choice
         } else {
-            printf("That player does not exist! Please choose again! ");
+            printf("That player does not exist! Please choose again! \n");
         }
     }
+}
+
+char winningLine(char board[3][3]) {
+    for (int i = 0; i < 3; i++){
+        // Line scan
+        if (board[i][0] == board[i][1] && board[i][1] == board[i][2] && board[i][0] != ' '){
+            return board[i][0];
+        }
+        // Column scan
+        if (board[0][i] == board[1][i] && board[1][i] == board[2][i] && board[0][i] != ' '){
+            return board[0][i];
+        }
+    }
+    // Vertical scanning
+    if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != ' '){
+        return board[0][0];
+    }
+    if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[0][2] != ' '){
+        return board[0][2];
+    }
+    // If there is a tie
+    return ' ';
 }
 
 int main() {
