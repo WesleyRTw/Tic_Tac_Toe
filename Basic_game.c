@@ -8,10 +8,9 @@ void initializeBoard(char board[3][3]) {
         }
     }
 }
-
 // Function to print the Tic-Tac-Toe board to the screen, still empty
 void printBoard(char board[3][3]) {
-    printf("+-+-+-+-+\n");
+    printf("+0--1--2+\n");
     for (int i = 0; i < 3; i++){
         for (int j = 0; j < 3; j++){
             printf("|%c|", board[i][j]);
@@ -20,15 +19,15 @@ void printBoard(char board[3][3]) {
     }
     printf("+-+-+-+-+\n");
 }
-
 // Function to let the player choose their symbol (X or O)
 char selectPlayer() {
-    char local_player; // Variable receives the player's choice locally within the function
-    
+    // Variable receives the player's choice locally within the function
+    char local_player; 
+    // Loop to validate the player's choice
     while(1) {
         printf("Choose the first player (X or O): \n");
         scanf(" %c", &local_player);
-
+        // Checks if a player has been selected.
         if (local_player == 'X' || local_player == 'O') {
             printf("You are playing as %c!\n", local_player);
             return local_player; // Return the choice
@@ -37,7 +36,7 @@ char selectPlayer() {
         }
     }
 }
-
+// Function to check for a winning line
 char winningLine(char board[3][3]) {
     for (int i = 0; i < 3; i++){
         // Line scan
@@ -59,9 +58,62 @@ char winningLine(char board[3][3]) {
     // If there is a tie
     return ' ';
 }
-
+// Function to run the game until it's finished
+void playGame(char board[3][3]) {
+    initializeBoard(board);
+    char ultimate_player = selectPlayer();
+    int turn_counter = 0;
+    char winner = ' ';
+    // Game loop that only ends when there is a winner or a draw
+    while(1){
+        int row, column; 
+        printBoard(board);
+        
+        printf("Player %c will begin! Enter row and column (ex: 1 1): \n", ultimate_player);
+        if (scanf("%d %d", &row, &column) != 2){
+            while(getchar() != '\n');
+            printf("That's not quite right. Please follow the example.\n");
+            continue;
+        }
+        // Checks if the selected square is not already occupied.
+        if (board[row][column] != ' '){
+            printf("Hey, don't try to cheat! Someone's already there.\n");
+            continue;
+        }
+        // Checks if the move is out of bounds
+        if (row < 0 || row > 2 || column < 0 || column > 2){
+            printf("Seriously? That position doesn't exist, silly!\n");
+            continue;
+        }
+        // Updates the board after the checks are complete. Increments the turn counter by 1
+        board[row][column] = ultimate_player;
+        turn_counter++;
+        // When the turn count reaches 5, we call the winningLine() function to check for a winner
+        if (turn_counter >= 5){
+            winner = winningLine(board);
+            // Declares the winner
+            if (winner != ' '){
+                printBoard(board);
+                printf("Player %c has won the game!\n", winner);
+                break;
+            }
+        }
+        // Checks for draw edge cases and, if found, declares a draw
+        if (turn_counter == 9 && winner == ' '){
+                printBoard(board);
+                printf("It's a draw!\n");
+                break;
+        }
+        // Altera o jogador do turno atual
+        if (ultimate_player == 'X'){
+            ultimate_player = 'O';
+        } else {
+            ultimate_player = 'X';
+        }
+    }
+}
+// Main function (Menu)
 int main() {
-    
     char board[3][3]; // Matrix that representing the board
     int options;
 
@@ -77,7 +129,7 @@ int main() {
         scanf("%d", &options);
         // Stop options one and two...
         if (options == 1) {
-            initializeBoard(board);
+            playGame(board);
             break;
         } else if (options == 2) {
             printf("Closing the game...\n");
@@ -86,7 +138,6 @@ int main() {
             printf("Invalid selection! Please enter the option again.\n");
         }
     }
-
     return 0;
     
 }
