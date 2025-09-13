@@ -40,19 +40,19 @@ char selectPlayer() {
 char winningLine(char board[3][3]) {
     for (int i = 0; i < 3; i++){
         // Line scan
-        if (board[i][0] == board[i][1] && board[i][1] == board[i][2] && board[i][0] != ' '){
+        if (board[i][0] == board[i][1] && board[i][1] == board[i][2] && board[i][0] != ' ') {
             return board[i][0];
         }
         // Column scan
-        if (board[0][i] == board[1][i] && board[1][i] == board[2][i] && board[0][i] != ' '){
+        if (board[0][i] == board[1][i] && board[1][i] == board[2][i] && board[0][i] != ' ') {
             return board[0][i];
         }
     }
     // Vertical scanning
-    if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != ' '){
+    if (board[0][0] == board[1][1] && board[1][1] == board[2][2] && board[0][0] != ' ') {
         return board[0][0];
     }
-    if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[0][2] != ' '){
+    if (board[0][2] == board[1][1] && board[1][1] == board[2][0] && board[0][2] != ' ') {
         return board[0][2];
     }
     // If there is a tie
@@ -70,26 +70,25 @@ void playGame(char board[3][3]) {
         printBoard(board);
         
         printf("Player %c will begin! Enter row and column (ex: 1 1): \n", ultimate_player);
-        if (scanf("%d %d", &row, &column) != 2){
-            while(getchar() != '\n');
-            printf("That's not quite right. Please follow the example.\n");
+        printf("Row: ");
+        scanf("%d", &row);
+        printf("Column: ");
+        scanf("%d", &column);
+        // Checks if the move is out of bounds
+        if (row < 0 || row > 2 || column < 0 || column > 2) {
+            printf("Seriously? That position doesn't exist, silly!\n");
             continue;
         }
         // Checks if the selected square is not already occupied.
-        if (board[row][column] != ' '){
+        if (board[row][column] != ' ') {
             printf("Hey, don't try to cheat! Someone's already there.\n");
-            continue;
-        }
-        // Checks if the move is out of bounds
-        if (row < 0 || row > 2 || column < 0 || column > 2){
-            printf("Seriously? That position doesn't exist, silly!\n");
             continue;
         }
         // Updates the board after the checks are complete. Increments the turn counter by 1
         board[row][column] = ultimate_player;
         turn_counter++;
         // When the turn count reaches 5, we call the winningLine() function to check for a winner
-        if (turn_counter >= 5){
+        if (turn_counter >= 5) {
             winner = winningLine(board);
             // Declares the winner
             if (winner != ' '){
@@ -99,13 +98,13 @@ void playGame(char board[3][3]) {
             }
         }
         // Checks for draw edge cases and, if found, declares a draw
-        if (turn_counter == 9 && winner == ' '){
+        if (turn_counter == 9 && winner == ' ') {
                 printBoard(board);
                 printf("It's a draw!\n");
                 break;
         }
         // Altera o jogador do turno atual
-        if (ultimate_player == 'X'){
+        if (ultimate_player == 'X') {
             ultimate_player = 'O';
         } else {
             ultimate_player = 'X';
